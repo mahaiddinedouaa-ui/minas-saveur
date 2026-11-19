@@ -1,0 +1,507 @@
+
+/* ==========================================
+   MINA'S SAVEUR - STYLE
+   1. Tokens   2. Base   3. Background
+   4. Nav      5. Hero   6. Panels/Sections
+   7. Buttons  8. Products   9. Cart & Form
+   10. Footer  11. Responsive  12. Accessibility
+========================================== */
+
+/* ================= 1. TOKENS ================= */
+
+:root {
+    --cream:   #F7E8B5;
+    --peach:   #FAD9A0;
+    --orange:  #C2602A;
+    --orange2: #E07A3A;
+    --green:   #7A9A3A;
+    --gold:    #D9A441;
+    --brown:   #3B2415;
+    --muted:   #8A6A4A;
+    --white:   #FFFFFF;
+
+    --radius-sm: 12px;
+    --radius:    20px;
+    --radius-lg: 24px;
+    --pill:      999px;
+
+    --shadow:    0 8px 22px rgba(59, 36, 21, .12);
+    --shadow-lg: 0 15px 30px rgba(194, 96, 42, .22);
+
+    --ease: .3s ease;
+}
+
+/* ================= 2. BASE ================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 85px;
+}
+
+body {
+    margin: 0;
+    font-family: 'Cairo', sans-serif;
+    color: var(--brown);
+    background: var(--cream);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+h1, h2, h3, p {
+    margin: 0;
+}
+
+:focus-visible {
+    outline: 3px solid var(--orange);
+    outline-offset: 3px;
+}
+
+/* ================= 3. PAGE BACKGROUND (LOGO) ================= */
+
+.page-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    background: var(--cream);
+}
+
+/* الصورة: logo.png */
+.page-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: url("logo.png") center / cover no-repeat;
+
+    animation: bgZoom 18s ease-in-out infinite alternate;
+}
+
+/* طبقة لونية خفيفة باش يبان المحتوى */
+.page-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        160deg,
+        rgba(247, 232, 181, .55),
+        rgba(250, 217, 160, .40),
+        rgba(122, 154, 58, .25)
+    );
+}
+
+@keyframes bgZoom {
+    from { transform: scale(1); }
+    to   { transform: scale(1.15); }
+}
+
+/* ================= 4. NAVBAR ================= */
+
+.nav {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    padding: 10px 20px;
+
+    background: rgba(255, 255, 255, .92);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 15px rgba(59, 36, 21, .1);
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.brand b {
+    color: var(--orange);
+}
+
+.nav-links {
+    display: none;
+    gap: 22px;
+    font-weight: 700;
+}
+
+.nav-links a {
+    transition: color var(--ease);
+}
+
+.nav-links a:hover {
+    color: var(--orange);
+}
+
+/* ================= 5. HERO ================= */
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 70vh;
+    padding: 60px 16px;
+    text-align: center;
+}
+
+.hero-top,
+.hero-text {
+    color: var(--white);
+    font-weight: 800;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, .75);
+}
+
+.hero-top  { font-size: 19px; }
+.hero-text { font-size: 22px; margin: 14px 0 22px; }
+
+.hero-title {
+    margin: 10px 0;
+
+    font-size: clamp(44px, 9vw, 96px);
+    font-weight: 900;
+    line-height: 1.3;
+    letter-spacing: 2px;
+
+    background: linear-gradient(90deg, var(--cream), var(--orange2), var(--gold), #A9C66B, var(--cream));
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, .45));
+
+    animation: titleShine 6s linear infinite;
+}
+
+@keyframes titleShine {
+    to { background-position: 300% center; }
+}
+
+.title-line {
+    width: 180px;
+    height: 4px;
+    border-radius: var(--pill);
+    background: linear-gradient(90deg, var(--orange), var(--cream), var(--green), var(--gold));
+}
+
+.hero-btns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* ================= 6. PANELS / SECTIONS ================= */
+
+.section {
+    max-width: 1100px;
+    margin: 0 auto 32px;
+    padding: 40px 16px;
+}
+
+/* لوحة بيضاء شفافة فوق اللوغو */
+.panel {
+    background: rgba(255, 255, 255, .86);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+}
+
+.section h2 {
+    text-align: center;
+    font-size: 30px;
+}
+
+.sub {
+    text-align: center;
+    color: var(--muted);
+}
+
+/* ================= 7. BUTTONS ================= */
+
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+
+    border: 2px solid var(--orange);
+    border-radius: var(--pill);
+
+    background: var(--orange);
+    color: var(--white);
+
+    font-family: inherit;
+    font-weight: 800;
+    cursor: pointer;
+
+    transition: background var(--ease), color var(--ease), transform var(--ease), box-shadow var(--ease);
+}
+
+.btn:hover {
+    background: var(--orange2);
+    border-color: var(--orange2);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(194, 96, 42, .3);
+}
+
+.btn:active {
+    transform: scale(.96);
+}
+
+.btn.ghost {
+    background: var(--white);
+    color: var(--orange);
+}
+
+.btn.ghost:hover {
+    background: var(--orange);
+    color: var(--white);
+}
+
+.btn.big  { padding: 15px 26px; font-size: 18px; }
+.btn.full { width: 100%; }
+
+/* ================= 8. PRODUCTS ================= */
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 18px 0;
+}
+
+.filter {
+    padding: 9px 18px;
+
+    border: 2px solid var(--orange);
+    border-radius: var(--pill);
+
+    background: var(--white);
+    color: var(--brown);
+
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+
+    transition: background var(--ease), color var(--ease);
+}
+
+.filter:hover,
+.filter.active {
+    background: var(--orange);
+    color: var(--white);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.card {
+    padding-bottom: 15px;
+    overflow: hidden;
+    text-align: center;
+
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+
+    transition: transform var(--ease), box-shadow var(--ease);
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card img {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.card h3 {
+    margin: 10px 8px 4px;
+    font-size: 18px;
+}
+
+.desc {
+    margin: 0 10px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.price-row {
+    margin: 8px 0;
+    color: var(--orange);
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.qty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin: 8px 0 12px;
+}
+
+.qty button {
+    width: 32px;
+    height: 32px;
+
+    border: 1px solid #ddd;
+    border-radius: 50%;
+
+    background: var(--white);
+    font-size: 18px;
+    cursor: pointer;
+
+    transition: background var(--ease), color var(--ease);
+}
+
+.qty button:hover {
+    background: var(--orange);
+    color: var(--white);
+}
+
+.q {
+    min-width: 20px;
+    font-weight: 700;
+}
+
+/* ================= 9. CART & FORM ================= */
+
+.cart-box {
+    margin: 18px 0;
+    padding: 14px;
+
+    background: #FFF6DE;
+    border: 1px dashed var(--orange);
+    border-radius: var(--radius);
+}
+
+.cart-box ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    line-height: 2;
+}
+
+.total {
+    margin-top: 10px;
+    color: var(--orange);
+    font-size: 18px;
+}
+
+form label {
+    display: block;
+    margin: 12px 0 6px;
+    font-weight: 800;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 13px;
+
+    border: 2px solid #EAD9B8;
+    border-radius: var(--radius-sm);
+
+    background: var(--white);
+    font-family: inherit;
+    font-size: 16px;
+
+    transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+form input:focus,
+form textarea:focus {
+    outline: none;
+    border-color: var(--orange);
+    box-shadow: 0 0 10px rgba(194, 96, 42, .18);
+}
+
+form textarea {
+    resize: vertical;
+}
+
+form .btn {
+    margin-top: 18px;
+}
+
+.form-msg {
+    margin-top: 12px;
+    text-align: center;
+    font-weight: 700;
+}
+
+/* ================= 10. FOOTER ================= */
+
+footer {
+    padding: 24px 16px;
+    text-align: center;
+    line-height: 1.8;
+
+    background: var(--brown);
+    color: var(--cream);
+}
+
+/* ================= 11. RESPONSIVE ================= */
+
+@media (min-width: 700px) {
+    .nav-links { display: flex; }
+}
+
+@media (max-width: 900px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+
+    .nav          { padding: 10px; }
+    .brand        { font-size: 17px; }
+    .nav .btn     { padding: 9px 13px; font-size: 13px; }
+
+    .hero         { min-height: 60vh; padding: 40px 12px; }
+    .hero-top     { font-size: 15px; }
+    .hero-text    { font-size: 18px; }
+    .hero-title   { letter-spacing: 0; }
+
+    .section      { margin: 0 10px 24px; padding: 28px 12px; }
+    .section h2   { font-size: 25px; }
+}
+
+/* ================= 12. ACCESSIBILITY ================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
