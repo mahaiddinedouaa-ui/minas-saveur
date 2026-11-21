@@ -18,12 +18,17 @@
 
 <body>
 
-    <!-- خلفية الصفحة (اللوغو) تتحكم فيها CSS: .page-bg -->
+    <!-- خلفية الصفحة المتحركة -->
     <div class="page-bg" aria-hidden="true"></div>
 
     <!-- ================= NAVBAR ================= -->
     <nav class="nav">
-        <a href="#home" class="brand">Mina's <b>Saveur</b></a>
+        <a href="#home" class="brand">
+            <span class="nav-logo-box">
+                <img src="logo.jpg" alt="Mina's Saveur Logo" class="nav-logo">
+            </span>
+            <span>Mina's <b>Saveur</b></span>
+        </a>
 
         <div class="nav-links">
             <a href="#home">الرئيسية</a>
@@ -31,13 +36,21 @@
             <a href="#order">الطلبات</a>
         </div>
 
-        <a href="#order" class="btn nav-btn">اطلب الآن</a>
+        <a href="#order" class="btn nav-btn">
+            سلة الطلبات (<span id="nav-cart-count">0</span>)
+        </a>
     </nav>
 
     <main>
 
         <!-- ================= HERO ================= -->
         <header class="hero" id="home">
+            <div class="hero-logo-wrap">
+                <div class="hero-logo-box">
+                    <img src="logo.jpg" alt="شعار Mina's Saveur" class="hero-logo">
+                </div>
+            </div>
+
             <p class="hero-top">❤️ مرحبا بكم في عالم الحلويات والمملحات ❤️</p>
             <h1 class="hero-title">Mina's Saveur</h1>
             <div class="title-line"></div>
@@ -50,10 +63,10 @@
         </header>
 
         <!-- ================= PRODUCTS ================= -->
-        <section class="section panel" id="products">
+        <section class="section panel reveal" id="products">
 
             <h2>منتجاتنا 🍰</h2>
-            <p class="sub">اختاري المنتجات المفضلة لديك</p>
+            <p class="sub">اضغطي على صورة أي منتج لمشاهدة المزيد من الصور والتفاصيل</p>
 
             <div class="filters">
                 <button type="button" class="filter active" data-filter="all">الكل</button>
@@ -63,12 +76,14 @@
 
             <div class="grid">
 
-                <article class="card" data-cat="sale" data-id="1">
-                    <img src="p2.jpg" alt="ميني باتبوت" loading="lazy">
+                <article class="card reveal" data-cat="sale" data-id="1" data-images="p2.jpg,p2_2.jpg,p2_3.jpg">
+                    <div class="card-img-wrap">
+                        <img src="p2.jpg" alt="ميني باتبوت" loading="lazy">
+                        <span class="gallery-badge">📷 شاهدي الصور</span>
+                    </div>
                     <h3>ميني باتبوت</h3>
                     <p class="desc">باتبوت صغير محشي، طري وبنين.</p>
-                    <div class="price-row"><span class="price">60
-                    </span> دج</div>
+                    <div class="price-row"><span class="price">60</span> دج</div>
                     <div class="qty">
                         <button type="button" class="minus">-</button>
                         <span class="q">1</span>
@@ -77,8 +92,11 @@
                     <button type="button" class="btn add-btn">أضف للطلب ➕</button>
                 </article>
 
-                <article class="card" data-cat="sale" data-id="2">
-                    <img src="p11.jpg" alt="ميني بيتزا" loading="lazy">
+                <article class="card reveal" data-cat="sale" data-id="2" data-images="p11.jpg,p11_2.jpg">
+                    <div class="card-img-wrap">
+                        <img src="p11.jpg" alt="ميني بيتزا" loading="lazy">
+                        <span class="gallery-badge">📷 شاهدي الصور</span>
+                    </div>
                     <h3>ميني بيتزا 🍕</h3>
                     <p class="desc">بيتزا صغيرة شهية ولذيذة.</p>
                     <div class="price-row"><span class="price">50</span> دج</div>
@@ -90,8 +108,11 @@
                     <button type="button" class="btn add-btn">أضف للطلب ➕</button>
                 </article>
 
-                <article class="card" data-cat="sale" data-id="3">
-                    <img src="p12.jpg" alt="بسطيلة" loading="lazy">
+                <article class="card reveal" data-cat="sale" data-id="3" data-images="p12.jpg,p12_2.jpg">
+                    <div class="card-img-wrap">
+                        <img src="p12.jpg" alt="بسطيلة" loading="lazy">
+                        <span class="gallery-badge">📷 شاهدي الصور</span>
+                    </div>
                     <h3>بسطيلة</h3>
                     <p class="desc">بسطيلة مالحة بحشوة لذيذة.</p>
                     <div class="price-row"><span class="price">120</span> دج</div>
@@ -103,8 +124,11 @@
                     <button type="button" class="btn add-btn">أضف للطلب ➕</button>
                 </article>
 
-                <article class="card" data-cat="sale" data-id="4">
-                    <img src="p13.jpg" alt="تاكوس" loading="lazy">
+                <article class="card reveal" data-cat="sale" data-id="4" data-images="p13.jpg,p13_2.jpg">
+                    <div class="card-img-wrap">
+                        <img src="p13.jpg" alt="تاكوس" loading="lazy">
+                        <span class="gallery-badge">📷 شاهدي الصور</span>
+                    </div>
                     <h3>تاكوس 🌮</h3>
                     <p class="desc">تاكوس شهي ولذيذ.</p>
                     <div class="price-row"><span class="price">120</span> دج</div>
@@ -116,8 +140,11 @@
                     <button type="button" class="btn add-btn">أضف للطلب ➕</button>
                 </article>
 
-                <article class="card" data-cat="sale" data-id="5">
-                    <img src="p14.jpg" alt="ميني برغر" loading="lazy">
+                <article class="card reveal" data-cat="sale" data-id="5" data-images="p14.jpg,p14_2.jpg">
+                    <div class="card-img-wrap">
+                        <img src="p14.jpg" alt="ميني برغر" loading="lazy">
+                        <span class="gallery-badge">📷 شاهدي الصور</span>
+                    </div>
                     <h3>ميني برغر 🍔</h3>
                     <p class="desc">برغر صغير وشهي.</p>
                     <div class="price-row"><span class="price">90</span> دج</div>
@@ -129,8 +156,11 @@
                     <button type="button" class="btn add-btn">أضف للطلب ➕</button>
                 </article>
 
-                <article class="card" data-cat="sale" data-id="6">
-                    <img src="p15.jpg" alt="ميني فاخيتاس" loading="lazy">
+                <article class="card reveal" data-cat="sale" data-id="6" data-images="p15.jpg,p15_2.jpg">
+                    <div class="card-img-wrap">
+                        <img src="p15.jpg" alt="ميني فاخيتاس" loading="lazy">
+                        <span class="gallery-badge">📷 شاهدي الصور</span>
+                    </div>
                     <h3>ميني فاخيتاس</h3>
                     <p class="desc">ميني فاخيتاس شهية.</p>
                     <div class="price-row"><span class="price">120</span> دج</div>
@@ -142,8 +172,11 @@
                     <button type="button" class="btn add-btn">أضف للطلب ➕</button>
                 </article>
 
-                <article class="card" data-cat="sucre" data-id="7">
-                    <img src="p4.jpg" alt="كيك الفراولة" loading="lazy">
+                <article class="card reveal" data-cat="sucre" data-id="7" data-images="p4.jpg,p4_2.jpg,p4_3.jpg">
+                    <div class="card-img-wrap">
+                        <img src="p4.jpg" alt="كيك الفراولة" loading="lazy">
+                        <span class="gallery-badge">📷 شاهدي الصور</span>
+                    </div>
                     <h3>كيك الفراولة</h3>
                     <p class="desc">كيك بالفراولة والفستق، طازج على الطلب.</p>
                     <div class="price-row"><span class="price">1200</span> دج</div>
@@ -155,8 +188,11 @@
                     <button type="button" class="btn add-btn">أضف للطلب ➕</button>
                 </article>
 
-                <article class="card" data-cat="sucre" data-id="8">
-                    <img src="p10.jpg" alt="التارتولات" loading="lazy">
+                <article class="card reveal" data-cat="sucre" data-id="8" data-images="p10.jpg,p10_2.jpg">
+                    <div class="card-img-wrap">
+                        <img src="p10.jpg" alt="التارتولات" loading="lazy">
+                        <span class="gallery-badge">📷 شاهدي الصور</span>
+                    </div>
                     <h3>التارتولات</h3>
                     <p class="desc">تارتولات صغيرة وشهية.</p>
                     <div class="price-row"><span class="price">80</span> دج</div>
@@ -168,8 +204,11 @@
                     <button type="button" class="btn add-btn">أضف للطلب ➕</button>
                 </article>
 
-                <article class="card" data-cat="sucre" data-id="9">
-                    <img src="p16.jpg" alt="كؤوس تحلية باردة بالفواكه الاستوائية وشوكولاتة المرجان" loading="lazy">
+                <article class="card reveal" data-cat="sucre" data-id="9" data-images="p16.jpg,p16_2.jpg">
+                    <div class="card-img-wrap">
+                        <img src="p16.jpg" alt="كؤوس تحلية باردة بالفواكه الاستوائية وشوكولاتة المرجان" loading="lazy">
+                        <span class="gallery-badge">📷 شاهدي الصور</span>
+                    </div>
                     <h3>كؤوس تحلية باردة بنكهة الفواكه الاستوائية وشوكولاتة المرجان</h3>
                     <p class="desc">تحلية باردة بمذاق الفواكه الاستوائية وشوكولاتة المرجان.</p>
                     <div class="price-row"><span class="price">130</span> دج</div>
@@ -181,8 +220,11 @@
                     <button type="button" class="btn add-btn">أضف للطلب ➕</button>
                 </article>
 
-                <article class="card" data-cat="sale" data-id="10">
-                    <img src="p5.jpg" alt="ميني كورني مالح" loading="lazy">
+                <article class="card reveal" data-cat="sale" data-id="10" data-images="p5.jpg,p5_2.jpg">
+                    <div class="card-img-wrap">
+                        <img src="p5.jpg" alt="ميني كورني مالح" loading="lazy">
+                        <span class="gallery-badge">📷 شاهدي الصور</span>
+                    </div>
                     <h3>ميني كورني مالح</h3>
                     <p class="desc">كورني مالح مقرمش بحشوة لذيذة.</p>
                     <div class="price-row"><span class="price">60</span> دج</div>
@@ -194,8 +236,11 @@
                     <button type="button" class="btn add-btn">أضف للطلب ➕</button>
                 </article>
 
-                <article class="card" data-cat="sale" data-id="11">
-                    <img src="p3.jpg" alt="ميني ساندويتش سيزار" loading="lazy">
+                <article class="card reveal" data-cat="sale" data-id="11" data-images="p3.jpg,p3_2.jpg">
+                    <div class="card-img-wrap">
+                        <img src="p3.jpg" alt="ميني ساندويتش سيزار" loading="lazy">
+                        <span class="gallery-badge">📷 شاهدي الصور</span>
+                    </div>
                     <h3>ميني ساندويتش سيزار</h3>
                     <p class="desc">ساندويتش صغير على طريقة سيزار.</p>
                     <div class="price-row"><span class="price">250</span> دج</div>
@@ -207,8 +252,11 @@
                     <button type="button" class="btn add-btn">أضف للطلب ➕</button>
                 </article>
 
-                <article class="card" data-cat="sale" data-id="12">
-                    <img src="p9.jpg" alt="ميني الإكلير المالحين" loading="lazy">
+                <article class="card reveal" data-cat="sale" data-id="12" data-images="p9.jpg,p9_2.jpg">
+                    <div class="card-img-wrap">
+                        <img src="p9.jpg" alt="ميني الإكلير المالحين" loading="lazy">
+                        <span class="gallery-badge">📷 شاهدي الصور</span>
+                    </div>
                     <h3>ميني الإكلير المالحين</h3>
                     <p class="desc">إكلير مالح صغير ولذيذ.</p>
                     <div class="price-row"><span class="price">90</span> دج</div>
@@ -220,10 +268,11 @@
                     <button type="button" class="btn add-btn">أضف للطلب ➕</button>
                 </article>
 
-         
-
-                <article class="card" data-cat="sale" data-id="14">
-                    <img src="p6.jpg" alt="كرواسون مالح" loading="lazy">
+                <article class="card reveal" data-cat="sale" data-id="14" data-images="p6.jpg,p6_2.jpg">
+                    <div class="card-img-wrap">
+                        <img src="p6.jpg" alt="كرواسون مالح" loading="lazy">
+                        <span class="gallery-badge">📷 شاهدي الصور</span>
+                    </div>
                     <h3>كرواسون مالح</h3>
                     <p class="desc">كرواسون مالح بالجبن.</p>
                     <div class="price-row"><span class="price">120</span> دج</div>
@@ -239,7 +288,7 @@
         </section>
 
         <!-- ================= ORDER ================= -->
-        <section class="section panel" id="order">
+        <section class="section panel reveal" id="order">
 
             <h2>سلة الطلبات 🛒</h2>
 
@@ -263,12 +312,12 @@
 
                 <label for="address">العنوان</label>
                 <input type="text" id="address" name="address" autocomplete="street-address"
-                    required placeholder="اكتبي عنوانك">
+                    required placeholder="اكتبي عنوانك (الولاية، البلدية، الحي)">
 
                 <label for="notes">ملاحظات إضافية</label>
-                <textarea id="notes" name="notes" rows="3" placeholder="ملاحظاتك حول الطلب..."></textarea>
+                <textarea id="notes" name="notes" rows="3" placeholder="تاريخ المناسبة، نكهات مفضلة، أو أي ملاحظات..."></textarea>
 
-                <button type="submit" class="btn full">تأكيد الطلب عبر WhatsApp</button>
+                <button type="submit" id="submit-btn" class="btn full">تأكيد وإرسال الطلب 📩</button>
                 <p id="form-msg" class="form-msg" aria-live="polite"></p>
 
             </form>
@@ -276,8 +325,36 @@
 
     </main>
 
+    <!-- ================= PRODUCT GALLERY MODAL ================= -->
+    <div id="product-modal" class="modal" aria-hidden="true" role="dialog">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <button type="button" class="modal-close" aria-label="إغلاق">✕</button>
+
+            <div class="modal-slider">
+                <button type="button" class="slider-btn prev" aria-label="الصورة السابقة">❯</button>
+                <img id="modal-main-img" src="" alt="">
+                <button type="button" class="slider-btn next" aria-label="الصورة التالية">❮</button>
+            </div>
+
+            <div id="modal-thumbs" class="modal-thumbs"></div>
+
+            <div class="modal-info">
+                <h3 id="modal-title"></h3>
+                <p id="modal-desc"></p>
+                <div class="modal-bottom">
+                    <span id="modal-price" class="price-row"></span>
+                    <button type="button" id="modal-add-btn" class="btn">أضف للسلة ➕</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ================= FOOTER ================= -->
     <footer>
+        <div class="footer-logo-box">
+            <img src="logo.jpg" alt="Mina's Saveur" class="footer-logo">
+        </div>
         <h3>Mina's Saveur ❤️</h3>
         <p>شكرا لثقتكم بنا، نسعد دائما بخدمتكم.</p>
         <p>© 2026 Mina's Saveur</p>
