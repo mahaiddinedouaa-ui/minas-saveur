@@ -2,9 +2,8 @@
     'use strict';
 
     /* ================= 1. CONFIG ================= */
-    // ضعي هنا إيميل صاحبة المتجر الذي ستصل إليه الطلبات
-    const OWNER_EMAIL = 'minas.saveur@gmail.com';
-    const EMAIL_ENDPOINT = `https://formsubmit.co/ajax/${OWNER_EMAIL}`;
+    // رقم واتساب صاحبة المتجر بصيغة دولية بدون + أو 0 في البداية
+    const WHATSAPP_NUMBER = '213555075000';
 
     const CURRENCY = 'دج';
     const STORAGE_KEY = 'mina-saveur-cart';
@@ -13,8 +12,8 @@
     /* ================= 2. HELPERS ================= */
     const $  = (sel, root = document) => root.querySelector(sel);
     const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
-    const money = (n) => `${n.toLocaleString('en-US')} ${CURRENCY}`;
-    const clamp = (n) => Math.min(MAX_QTY, Math.max(1, n));
+    const money = (n) => `${Number(n || 0).toLocaleString('en-US')} ${CURRENCY}`;
+    const clamp = (n) => Math.min(MAX_QTY, Math.max(1, Number.isFinite(n) ? n : 1));
 
     /* ================= 3. STATE ================= */
     let cart = new Map();
@@ -22,7 +21,7 @@
     const loadCart = () => {
         try {
             const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            cart = new Map(saved.map((item) => [item.id, item]));
+            cart = new Map(saved.map((item) => [String(item.id), { ...item, id: String(item.id) }]));
         } catch {
             cart = new Map();
         }
@@ -75,7 +74,7 @@
         if (existing) {
             existing.qty = clamp(existing.qty + qty);
         } else {
-            cart.set(product.id, { ...product, qty });
+            cart.set(product.id, { ...product, qty: clamp(qty) });
         }
         renderCart();
     };
@@ -93,7 +92,7 @@
 
         addBtn.addEventListener('click', () => {
             addToCart({
-                id: card.dataset.id,
+                id: String(card.dataset.id),
                 name: $('h3', card).textContent.trim(),
                 price: +$('.price', card).textContent,
             }, +qEl.textContent);
@@ -137,13 +136,13 @@
         currentIndex = 0;
 
         activeProduct = {
-            id: card.dataset.id,
+            id: String(card.dataset.id),
             name: $('h3', card).textContent.trim(),
             price: +$('.price', card).textContent,
         };
 
         modalTitle.textContent = activeProduct.name;
-        modalDesc.textContent = $('.desc', card).textContent.trim();
+        modalDesc.textContent = $('.desc', card)?.textContent.trim() || '';
         modalPrice.textContent = money(activeProduct.price);
 
         modalThumbs.replaceChildren();
@@ -279,7 +278,7 @@
         renderCart();
     });
 
-    /* ================= 9. ORDER FORM (EMAIL BACKEND) ================= */
+    /* ================= 9. ORDER FORM (WHATSAPP) ================= */
     const form = $('#order-form');
     const msg = $('#form-msg');
     const submitBtn = $('#submit-btn');
@@ -289,7 +288,7 @@
         msg.className = `form-msg ${type}`;
     };
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
 
         if (cart.size === 0) {
@@ -304,48 +303,40 @@
         }
 
         const data = Object.fromEntries(
-            [...new FormData(form)].map(([k, v]) => [k, v.trim()])
+            [...new FormData(form)].map(([k, v]) => [k, String(v).trim()])
         );
 
         const orderDetails = [...cart.values()]
-            .map((i) => `${i.name} (الكمية: ${i.qty}) = ${money(i.price * i.qty)}`)
+            .map((i) => `• ${i.name} (الكمية: ${i.qty}) = ${money(i.price * i.qty)}`)
             .join('\n');
 
+        const whatsappMessage = [
+            `طلب جديد - Mina's Saveur`,
+            `الاسم: ${data.customer}`,
+            `الهاتف: ${data.phone}`,
+            `العنوان: ${data.address}`,
+            `الملاحظات: ${data.notes || 'لا توجد ملاحظات'}`,
+            ``,
+            `تفاصيل الطلب:`,
+            orderDetails,
+            ``,
+            `المجموع الكلي: ${money(cartTotal())}`
+        ].join('\n');
+
+        const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
+
         submitBtn.disabled = true;
-        submitBtn.textContent = 'جاري إرسال الطلب... ⏳';
+        submitBtn.textContent = 'جاري فتح واتساب... ⏳';
 
-        try {
-            const response = await fetch(EMAIL_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    _subject: `طلب جديد من ${data.customer} - Mina's Saveur`,
-                    الاسم_الكامل: data.customer,
-                    رقم_الهاتف: data.phone,
-                    العنوان: data.address,
-                    ملاحظات: data.notes || 'لا توجد ملاحظات',
-                    تفاصيل_الطلب: orderDetails,
-                    المجموع_الكلي: money(cartTotal())
-                })
-            });
+        window.open(url, '_blank', 'noopener,noreferrer');
 
-            if (response.ok) {
-                showMsg('تم إرسال طلبك بنجاح! سنتواصل معك قريبا لتأكيد الطلب ✓', 'ok');
-                cart.clear();
-                renderCart();
-                form.reset();
-            } else {
-                throw new Error('Server error');
-            }
-        } catch {
-            showMsg('حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.', 'error');
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'تأكيد وإرسال الطلب 📩';
-        }
+        showMsg('تم تجهيز طلبك وفتح واتساب! أكملي إرسال الرسالة من واتساب ✓', 'ok');
+        cart.clear();
+        renderCart();
+        form.reset();
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'تأكيد وإرسال الطلب 📩';
     });
 
     /* ================= 10. INIT ================= */
