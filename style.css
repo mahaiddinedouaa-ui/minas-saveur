@@ -261,7 +261,7 @@ h1, h2, h3, p { margin: 0; }
 /* ================= SCROLL REVEAL ANIMATION ================= */
 
 .reveal {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(28px);
     transition: opacity .7s ease, transform .7s ease;
 }
